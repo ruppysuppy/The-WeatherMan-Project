@@ -136,6 +136,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'weather_details/static')
 ]
 
+for directory in STATICFILES_DIRS:
+    os.makedirs(directory, exist_ok=True)
+
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
