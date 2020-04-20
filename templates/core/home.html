@@ -1,35 +1,35 @@
 {% extends '../base.html' %} {% block title %} The WeatherMan Project | Home {% endblock title %} {% block head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"> {% endblock head %} {% block content %}
+
 <h1>Home</h1>
 
-<canvas id="myChart"></canvas> {% endblock content %} {% block script %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<form action="{% url 'details' %}" onsubmit="return redirectOnFormSubmit(this);">
+    {% csrf_token %}
+    <input type="text" name="search_input" id="search_input">
+    <input type="submit" value="Check Weather">
+</form>
+
+{% endblock content %} {% block script %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6ZPAUxOjNUjddtc39r-w-zuaAOLQlCbc&libraries=places"></script>
 <script>
-    // var array = {{arr | safe}};
+    function redirectOnFormSubmit() {
+        const url = "{% url 'details' %}";
+        var data = {
+            'Location': document.getElementById('search_input').innerHTML
+        };
+        $.get(url, data);
+    }
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
+    $(document).ready(function() {
+        var autocomplete;
 
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'My Second dataset',
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                borderColor: 'rgb(25, 99, 132)',
-                data: [8, 7.1, 6, 5, 4, 3.1, 2]
-            }, {
-                label: 'My First dataset',
-                // backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [1, 2, 3.5, 4, 5.5, 6, 7]
-            }]
-        },
+        autocomplete = new google.maps.places.Autocomplete((document.getElementById("search_input")), {
+            types: ['geocode']
+        });
 
-        // Configuration options go here
-        options: {}
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var near_place = autocomplete.getPlace();
+        });
     });
 </script>
 {% endblock script %}
