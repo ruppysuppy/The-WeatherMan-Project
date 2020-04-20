@@ -1,0 +1,35 @@
+{% extends '../base.html' %} {% block title %} The WeatherMan Project | Home {% endblock title %} {% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"> {% endblock head %} {% block content %}
+<h1>Home</h1>
+
+<canvas id="myChart"></canvas> {% endblock content %} {% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script>
+    // var array = {{arr | safe}};
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'My Second dataset',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                borderColor: 'rgb(25, 99, 132)',
+                data: [8, 7.1, 6, 5, 4, 3.1, 2]
+            }, {
+                label: 'My First dataset',
+                // backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [1, 2, 3.5, 4, 5.5, 6, 7]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>
+{% endblock script %}
