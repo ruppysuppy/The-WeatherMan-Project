@@ -1,33 +1,93 @@
 {% extends '../base.html' %} {% block title %} The WeatherMan Project | Detail {% endblock title %} {% block content %}
-<h1>Detail</h1>
+<h4 class="text-muted">Location: {{location}}</h4>
 
-<canvas id="myChart"></canvas> {% endblock content %} {% block script %}
+<div class="jumbotron">
+    <h2>
+        Today's Weather
+    </h2>
+    <h3> Maximum Temperature: {{curr_max_temp}} </h3>
+    <h3> Minimum Temperature: {{curr_min_temp}} </h3>
+    <h3> Precipitation: {{curr_precipitation}} </h3>
+    <h3> Humidity: {{curr_humidity}}</h3>
+</div>
+
+<div class="row">
+    {% for data in forecast %}
+    <div class="card" style="width: 15rem; margin: 8px;">
+        <div class="card-body">
+            <h5 class="card-title">{{data.1}} Forecast</h5>
+            <p class="card-text">
+                Maximum Temperature: {{data.0.0}}
+            </p>
+            <p class="card-text">
+                Minimum Temperature: {{data.0.1}}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<canvas id="tempChart"></canvas>
+<canvas id="precipChart"></canvas>
+<canvas id="humidChart"></canvas> {% endblock content %} {% block script %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script>
-    // var array = {{arr | safe}};
-
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
+    // TEMPERATURE GRAPH
+    var chart_temperature = document.getElementById('tempChart').getContext('2d');
+    var chart = new Chart(chart_temperature, {
         type: 'line',
 
-        // The data for our dataset
         data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: {{days | safe}},
             datasets: [{
-                label: 'My Second dataset',
+                label: 'Maximum Temperature',
                 backgroundColor: 'rgba(255, 255, 255, 0)',
-                borderColor: 'rgb(255, 0, 0)',
+                borderColor: 'rgba(255, 0, 0, 0.9)',
                 data: {{temp_high | safe}}
             }, {
-                label: 'My First dataset',
+                label: 'Minimum Temperature',
                 backgroundColor: 'rgba(255, 255, 255, 0)',
-                borderColor: 'rgb(255, 150,0)',
+                borderColor: 'rgba(255, 150,0,0.9)',
                 data: {{temp_low | safe}}
             }]
         },
 
-        // Configuration options go here
+        options: {}
+    });
+
+    // PRECIPITATION GRAPH
+    var chart_precipitation = document.getElementById('precipChart').getContext('2d');
+    var chart = new Chart(chart_precipitation, {
+        type: 'line',
+
+        data: {
+            labels: {{days | safe}},
+            datasets: [{
+                label: 'Precipitation',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                borderColor: 'rgb(100, 100, 255)',
+                data: {{precipitation | safe}}
+            }]
+        },
+
+        options: {}
+    });
+
+    // HUMIDITY GRAPH
+    var chart_humidity = document.getElementById('humidChart').getContext('2d');
+    var chart = new Chart(chart_humidity, {
+        type: 'line',
+
+        data: {
+            labels: {{days | safe}},
+            datasets: [{
+                label: 'Humidity',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                borderColor: 'rgba(0, 100, 0, 0.9)',
+                data: {{humidity | safe}}
+            }]
+        },
+
         options: {}
     });
 </script>
