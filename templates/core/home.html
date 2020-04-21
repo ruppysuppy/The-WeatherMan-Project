@@ -12,14 +12,6 @@
 {% endblock content %} {% block script %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6ZPAUxOjNUjddtc39r-w-zuaAOLQlCbc&libraries=places"></script>
 <script>
-    function redirectOnFormSubmit() {
-        const url = "{% url 'details' %}";
-        var data = {
-            'Location': document.getElementById('search_input').innerHTML
-        };
-        $.get(url, data);
-    }
-
     $(document).ready(function() {
         var autocomplete;
 
@@ -28,8 +20,17 @@
         });
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var near_place = autocomplete.getPlace();
+            var place = autocomplete.getPlace();
         });
     });
+
+    function redirectOnFormSubmit() {
+        const url = "{% url 'details' %}";
+
+        var data = {
+            'Location': document.getElementById('search_input').innerHTML
+        };
+        $.get(url, data);
+    }
 </script>
 {% endblock script %}
