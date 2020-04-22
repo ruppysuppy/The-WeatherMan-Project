@@ -1,4 +1,5 @@
-{% extends '../base.html' %} {% block title %} The WeatherMan Project | Detail {% endblock title %} {% block content %}
+{% extends '../base.html' %} {% block title %} The WeatherMan Project | Detail {% endblock title %} {% block head %} {% load static %}
+<link rel="stylesheet" href="{% static 'style/detail.css' %}"> {% endblock head %} {% block content %}
 <h4 class="text-muted">Location: {{location}}</h4>
 
 <div class="jumbotron">
@@ -17,17 +18,13 @@
     <div class="card jumbotron pt-1 pb-2 pl-1 pr-1" style="width: 20rem; margin: 8px;">
         <div class="card-body">
             <h5 class="card-title"><u> {{data.1}} Forecast </u></h5>
-	<span>
+            <span>
 		<img src="{{data.0.4}}" style="width: 50px">
 	</span>
-	<br>
-                Maximum Temperature: {{data.0.0}} C
-	<br>
-                Minimum Temperature: {{data.0.1}} C
-	<br>
-                Humidity: {{data.0.2}} %
-	<br>
-                Precipitation: {{data.0.3}} mm
+            <br> Maximum Temperature: {{data.0.0}} C
+            <br> Minimum Temperature: {{data.0.1}} C
+            <br> Humidity: {{data.0.2}} %
+            <br> Precipitation: {{data.0.3}} mm
         </div>
     </div>
     {% endfor %}
@@ -58,7 +55,17 @@
             }]
         },
 
-        options: {}
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: 50,
+                        min: 0,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }
     });
 
     // PRECIPITATION GRAPH
@@ -76,7 +83,17 @@
             }]
         },
 
-        options: {}
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: 200,
+                        min: 0,
+                        stepSize: 40
+                    }
+                }]
+            }
+        }
     });
 
     // HUMIDITY GRAPH
@@ -94,7 +111,17 @@
             }]
         },
 
-        options: {}
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: 100,
+                        min: 0,
+                        stepSize: 20
+                    }
+                }]
+            }
+        }
     });
 </script>
 {% endblock script %}

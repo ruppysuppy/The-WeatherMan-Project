@@ -1,5 +1,6 @@
 {% extends '../base.html' %} {% block title %} The WeatherMan Project | Home {% endblock title %} {% block head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"> {% endblock head %} {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"> {% load static %}
+<link rel="stylesheet" href="{% static 'style/home.css' %}"> {% endblock head %} {% block content %}
 
 <h1>Home</h1>
 
