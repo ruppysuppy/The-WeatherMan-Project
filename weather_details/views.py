@@ -4,8 +4,9 @@ import requests as rq
 
 from geopy.geocoders import Nominatim
 
-API_END_PT_CURR = "http://api.openweathermap.org/data/2.5/weather?lat={:.1f}&lon={:.1f}&appid={}&units=metric"
+API_END_PT = "https://api.openweathermap.org/data/2.5/onecall?lat={:.1f}&lon={:.1f}&appid={}&units=metric"
 API_KEY = "d496fded6f52e05a233d961633e95207"
+IMAGE_URL = "http://openweathermap.org/img/wn/{}@2x.png"
 locator = Nominatim(user_agent="weatherManGeoCoder")
 
 def home(request):
@@ -42,8 +43,8 @@ def details(request):
                         })
     
     try:
-        url = API_END_PT_CURR.format(latitude, longitude, API_KEY)
-        response_curr = rq.get(url=url).json()
+        url = API_END_PT.format(latitude, longitude, API_KEY)
+        response = rq.get(url=url).json()
     except:
         return render(request, 'weather/weatherdetail.html', {
                             "curr_temp": "-",
@@ -65,12 +66,36 @@ def details(request):
                             "error": "Response not received!"
                         })
     
-    curr_temp = response_curr["main"]["temp"]
-    curr_precipitation = response_curr["weather"][0]["main"]
-    curr_humidity = response_curr["main"]["humidity"]
+    curr_temp = response["current"]["temp"]
+    curr_humidity = response["current"]["humidity"]
+    curr_icon = IMAGE_URL.format(response["daily"][0]["weather"][0]["icon"])
+
+    try:
+        curr_precipitation = response["daily"][0]["rain"]
+    except KeyError:
+        curr_precipitation = 0
     
-    forecast_data = [(5, 2), (5, 3), (6, 3), (7, 1)]
-    forecast = list(zip(forecast_data, [(today + datetime.timedelta(days=i)).strftime('%d/%m') for i in range(1, 5)]))
+    forecast_data = []
+    
+    for data in response["daily"][1:4]:
+        try:
+	        forecast_data.append((
+                data["temp"]["max"], 
+                data["temp"]["min"], 
+                data["humidity"], 
+                data["rain"], 
+                IMAGE_URL.format(data["weather"][0]["icon"])
+            ))
+        except KeyError:
+            forecast_data.append((
+                data["temp"]["max"], 
+                data["temp"]["min"], 
+                data["humidity"], 
+                0, 
+                IMAGE_URL.format(data["weather"][0]["icon"])
+            ))
+
+    forecast = list(zip(forecast_data, [(today + datetime.timedelta(days=i)).strftime('%d/%m') for i in range(1, 4)]))
 
     temp_high = [5, 5, 6, 7, 4, 6, 4.2]
     temp_low = [2, 1, 2, 3, 2, 1, 1.2]
@@ -88,7 +113,8 @@ def details(request):
                             "precipitation": precipitation,
                             "humidity": humidity,
                             "days": days, 
-                            "location": location
+                            "location": location,
+                            "curr_icon": curr_icon
                         })
     
 def about(request):
