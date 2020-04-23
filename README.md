@@ -8,7 +8,7 @@ This is a simple Django project which displays the weather details (current + fo
 
 ### How To Use
 Follow the steps to start the local server on your machine:
-* Enter Your Google API Key (./templates/core/home.html) and Open Weather Maps API KEY (./weather_details/views.py). You receive the key after you make an account in the mentioned sites
+* __Enter Your Google API Key (./templates/core/home.html) and Open Weather Maps API KEY (./weather_details/views.py). You receive the key after you make an account in the Google Cloud Platform and Open Weather Maps__
 * Download and install Python 3.x
 * Navigate to the repository folder
 * Open the Terminal/CMD/PowerShell at the location (Shift + Right Click => Run Command Prompt/PowerShell for Windows or Right Click => Run Terminal for Linux based system)

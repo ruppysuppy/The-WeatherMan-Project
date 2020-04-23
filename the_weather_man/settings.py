@@ -1,21 +1,19 @@
-# 3rd party packages
+# Importing Third Party Packages
 import django_heroku
 
-# python modules
+# Importing Python Modules
 import os
 
-# App Details
+# Website Configuration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'ce4ah6(r3wu!=0i0#!%f5b+-%xw(x@(ai!7+iqti-#8h%m=b#j'
+SECRET_KEY = 'ce4ah6(r3wu!=0i0#!%f5b+-%xw(x@(ai!7+iqti-#8h%m=b.j'
 
 DEBUG = False
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -114,5 +112,6 @@ for directory in STATICFILES_DIRS:
     os.makedirs(directory, exist_ok=True)
 
 
-# Activate Django-Heroku.
+# Activate Django-Heroku for Server
+
 django_heroku.settings(locals())

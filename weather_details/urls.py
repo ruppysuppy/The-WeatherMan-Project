@@ -1,10 +1,13 @@
-# imports from django
+# Importing Third Party Packages
+
 from django.urls import path
 
-# local imports
+# Local Imports
+
 from .views import about, home, details
 
-# url patterns registration
+# Url Patterns Registration
+
 urlpatterns = [
     path('about/', about, name='about'),
     path('', home, name='home'),
