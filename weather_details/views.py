@@ -13,7 +13,7 @@ API_END_PT_CURR_FORCAST = "https://api.openweathermap.org/data/2.5/onecall?lat={
 API_END_PT_HISTORIC_DATA = "https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={:.1f}&lon={:.1f}&dt={}&appid={}&units=metric"
 
 # open weather maps api key
-API_KEY = "d496fded6f52e05a233d961633e95207"
+API_KEY = "{YOUR OPEN WEATHER MAP API KEY}"
 
 # open weather maps image location
 IMAGE_URL = "http://openweathermap.org/img/wn/{}@2x.png"
