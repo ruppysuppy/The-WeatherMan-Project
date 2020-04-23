@@ -1,0 +1,21 @@
+{% extends '../base.html' %} 
+
+{% block title %} 
+The WeatherMan Project | Error 
+{% endblock title %}
+
+{% block content %}
+
+<h1>Oops!</h1>
+
+{% if cause == 'Location' %}
+<h3>
+    Please check the spelling of the location and try again <a href="{% url 'home' %}"> here</a>.
+</h3>
+{% else %}
+<h3>
+    The Open Weather Map Server Did not respond. Please try again after some time.
+</h3>
+{% endif %} 
+
+{% endblock content %}

@@ -1,77 +1,68 @@
+# 3rd party packages
+
 from django.shortcuts import render
 from geopy.geocoders import Nominatim
 
+# python packages
 import datetime
 import requests as rq
 from time import mktime
 
+# api end points
 API_END_PT_CURR_FORCAST = "https://api.openweathermap.org/data/2.5/onecall?lat={:.1f}&lon={:.1f}&appid={}&units=metric"
 API_END_PT_HISTORIC_DATA = "https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={:.1f}&lon={:.1f}&dt={}&appid={}&units=metric"
+
+# open weather maps api key
 API_KEY = "d496fded6f52e05a233d961633e95207"
+
+# open weather maps image location
 IMAGE_URL = "http://openweathermap.org/img/wn/{}@2x.png"
+
+# locator to convert location name to latitude and longitude
 locator = Nominatim(user_agent="weatherManGeoCoder")
 
+# home page rendering
 def home(request):
     return render(request, 'core/home.html', {"page": "Home"})
 
-def details(request):
-    location = request.GET['search_input']
-    today = datetime.date.today()
-    days = [(today - datetime.timedelta(days=i)).strftime('%d/%m') for i in range(1, 5)]
+# about page rendering
+def about(request):
+    return render(request, 'core/about.html', {"page": "About"})
     
+# error page rendering
+def error(request, data):
+    # Handles Location not found
+    if (data == "Location"):
+        error_data = "Seems Like You have entered a wrong location"
+    # Handles Server did not respond
+    elif (data == "Server"):
+        error_data = "Seems like the server is not responding."
+
+    return render(request, 'core/error.html', {"page": "Error", "cause": data, "error": error_data})
+
+# weather details page rendering
+def details(request):
+    # getting the user's chosen location
+    location = request.GET['search_input']
+    # getting today's date
+    today = datetime.date.today()
+    
+    # checking if the input is valid
     try:
         location_details = locator.geocode(location)
         latitude = location_details.latitude
         longitude = location_details.longitude
     except:
-        return render(request, 'weather/weatherdetail.html', {
-                            "curr_temp": "-",
-                            "curr_precipitation": "-",
-                            "curr_humidity": "-",
-                            "forecast": list(
-                                    zip(
-                                        [("-", "-", "-", "-", "-") for _ in range(3)], 
-                                        [(today + datetime.timedelta(days=i)).strftime('%d/%m') for i in range(1, 5)]
-                                    )
-                                ),
-                            "page": "Detail", 
-                            "temp_high": [0 for _ in range(7)],
-                            "temp_low": [0 for _ in range(7)], 
-                            "precipitation": [0 for _ in range(7)],
-                            "humidity": [0 for _ in range(7)],
-                            "days": days, 
-                            "location": location,
-                            "error": "Location Could Not Be Found!",
-                            "curr_icon": "-",
-                            "curr_status": "-"
-                        })
+        return error(request, "Location")
     
+    # getting the response from open weather maps api
     try:
         url = API_END_PT_CURR_FORCAST.format(latitude, longitude, API_KEY)
         response = rq.get(url=url).json()
     except:
-        return render(request, 'weather/weatherdetail.html', {
-                            "curr_temp": "-",
-                            "curr_precipitation": "-",
-                            "curr_humidity": "-",
-                            "forecast": list(
-                                    zip(
-                                        [("-", "-", "-", "-", "-") for _ in range(3)], 
-                                        [(today + datetime.timedelta(days=i)).strftime('%d/%m') for i in range(1, 5)]
-                                    )
-                                ),
-                            "page": "Detail", 
-                            "temp_high": [0 for _ in range(7)],
-                            "temp_low": [0 for _ in range(7)], 
-                            "precipitation": [0 for _ in range(7)],
-                            "humidity": [0 for _ in range(7)],
-                            "days": days, 
-                            "location": location,
-                            "error": "Response not received!",
-                            "curr_icon": "-",
-                            "curr_status": "-"
-                        })
+        return error(request, "Server")
     
+    # getting current data
     curr_temp = response["current"]["temp"]
     curr_humidity = response["current"]["humidity"]
     curr_icon = IMAGE_URL.format(response["daily"][0]["weather"][0]["icon"])
@@ -82,8 +73,10 @@ def details(request):
     except KeyError:
         curr_precipitation = 0
     
+    # creating forecast data
     forecast_data = []
     
+    # getting the forecast
     for data in response["daily"][1:4]:
         try:
 	        forecast_data.append((
@@ -104,12 +97,16 @@ def details(request):
 
     forecast = list(zip(forecast_data, [(today + datetime.timedelta(days=i)).strftime('%d/%m') for i in range(1, 4)]))
 
+    # data dict stores the past data
     data_dict = {(today - datetime.timedelta(days=i)): [0, 9999, 0, 0] for i in range(1, 7)}
     days = [key.strftime("%d/%m") for key in data_dict][:-2]
 
+    # iterating through the days
     for key in data_dict:
+        # creating the api
         url = API_END_PT_HISTORIC_DATA.format(latitude, longitude, int(mktime(key.timetuple())), API_KEY)
 
+        # getting the response for past data
         response_temp = rq.get(url=url)
         response = response_temp.json()
         response_code = response_temp.status_code
@@ -117,6 +114,7 @@ def details(request):
         rain = 0
         humidity_temp = []
         
+        # synthesising the data from the response
         if (response_code != 400):
             for data in response["hourly"]:
                 time = datetime.date.fromtimestamp(data["dt"])
@@ -142,11 +140,13 @@ def details(request):
         except ZeroDivisionError:
             data_dict[key][3] = 0
 
-    temp_high = [data_dict[key][0] for key in data_dict][:-2] # [5, 5, 6, 7, 4, 6, 4.2]
-    temp_low = [data_dict[key][1] for key in data_dict][:-2] # [2, 1, 2, 3, 2, 1, 1.2]
-    precipitation = [data_dict[key][2] for key in data_dict][:-2] # [0, 0, 0, 0, 0, 0, 0.5]
-    humidity = [data_dict[key][3] for key in data_dict][:-2] # [50, 60, 55, 40, 43.2, 30, 50]
+    # breaking the generated result in the data_dict into the required variables
+    temp_high = [data_dict[key][0] for key in data_dict][:-2]
+    temp_low = [data_dict[key][1] for key in data_dict][:-2]
+    precipitation = [data_dict[key][2] for key in data_dict][:-2]
+    humidity = [data_dict[key][3] for key in data_dict][:-2]
 
+    # rendering the page
     return render(request, 'weather/weatherdetail.html', {
                             "curr_temp": curr_temp,
                             "curr_precipitation": curr_precipitation,
@@ -162,6 +162,3 @@ def details(request):
                             "curr_icon": curr_icon, 
                             "curr_status": curr_status
                         })
-    
-def about(request):
-    return render(request, 'core/about.html', {"page": "About"})

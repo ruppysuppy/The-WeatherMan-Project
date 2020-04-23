@@ -11,6 +11,25 @@ p {
     margin-bottom: 0;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
+.back-button {
+    border: none;
+    border-radius: 12px;
+    transition: 0.25s;
+    background-color: rgb(50, 0, 167);
+    color: white;
+    padding: 5px 10px;
+    width: max-content;
+}
+
+.back-button:hover,
+.back-button:focus {
+    animation: animation_but 1s linear infinite;
+}
+
 .forecast {
     display: flex;
     justify-content: space-between;
@@ -26,6 +45,18 @@ canvas {
     width: 1200px !important;
     height: 550px !important;
     margin: auto;
+}
+
+@keyframes animation_but {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 @media (max-width: 1650px) {

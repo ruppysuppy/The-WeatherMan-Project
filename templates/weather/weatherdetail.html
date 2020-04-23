@@ -1,5 +1,23 @@
-{% extends '../base.html' %} {% block title %} The WeatherMan Project | Detail {% endblock title %} {% block head %} {% load static %}
-<link rel="stylesheet" href="{% static 'style/detail.css' %}"> {% endblock head %} {% block content %}
+{% extends '../base.html' %} 
+
+{% block title %} 
+The WeatherMan Project | {{location}} 
+{% endblock title %} 
+
+{% block head %} 
+{% load static %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'style/detail.css' %}"> 
+{% endblock head %} 
+
+{% block content %}
+<a href="{% url 'home' %}">
+    <div class="back-button mb-3">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <p style="display: inline;">Check for another place</p>
+    </div>
+</a>
+
 <h4 class="text-muted">Location: {{location}}</h4>
 
 <div class="jumbotron">
@@ -53,29 +71,33 @@
     </u>
 </h2>
 
-<canvas id="tempChart"></canvas>
+<div class="mt-5"></div>
 <h3 class="mb-4" align="center">
     <u>
         Temperature
     </u>
 </h3>
-<div class="mt-5"></div>
+<canvas id="tempChart"></canvas>
 
-<canvas id="precipChart"></canvas>
+<div class="mt-5"></div>
 <h3 class="mb-4" align="center">
     <u>
         Precipitation
     </u>
 </h3>
-<div class="mt-5"></div>
+<canvas id="precipChart"></canvas>
 
-<canvas id="humidChart"></canvas>
+<div class="mt-5"></div> 
 <h3 class="mb-4" align="center">
     <u>
         Humidity
     </u>
 </h3>
-<div class="mt-5"></div> {% endblock content %} {% block script %}
+<canvas id="humidChart"></canvas>
+
+{% endblock content %} 
+
+{% block script %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script>
     // TEMPERATURE GRAPH

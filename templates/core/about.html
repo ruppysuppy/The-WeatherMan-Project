@@ -1,12 +1,25 @@
-{% extends '../base.html' %} {% block title %} The WeatherMan Project | Home {% endblock title %} {% block head %} {% load static %}
-<link rel="stylesheet" href="{% static 'style/about.css' %}"> {% endblock head %} {% block content %}
+{% extends '../base.html' %} 
+
+{% block title %} 
+The WeatherMan Project | About 
+{% endblock title %} 
+
+{% block head %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'style/about.css' %}"> 
+{% endblock head %} 
+
+{% block content %}
 <div class="mt-4" align="center" style="height: 65vh; display: flex; flex-direction: column; justify-content: center;">
     <div>
         <img src="{% static 'img/logo.png' %}">
     </div>
     <h1 class="mt-3">About</h1>
+    <h4>
+        <strong>Made By: </strong> Tapajyoti Bose
+    </h4>
     <h5>
-        The WeatherMan Project is a webapp for displaying the weather details from all around the world.
+        The WeatherMan Project is a web-app for displaying the weather details from all around the world.
     </h5>
 
     <p class="pt-4 mb-1" align="left">

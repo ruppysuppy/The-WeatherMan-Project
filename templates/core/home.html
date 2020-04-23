@@ -1,7 +1,16 @@
-{% extends '../base.html' %} {% block title %} The WeatherMan Project | Home {% endblock title %} {% block head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"> {% load static %}
-<link rel="stylesheet" href="{% static 'style/home.css' %}"> {% endblock head %} {% block content %}
+{% extends '../base.html' %} 
 
+{% block title %} 
+The WeatherMan Project | Home 
+{% endblock title %} 
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"> 
+{% load static %}
+<link rel="stylesheet" href="{% static 'style/home.css' %}"> 
+{% endblock head %} 
+
+{% block content %}
 <div align="center" style="height: 65vh; display: flex; flex-direction: column; justify-content: center;">
     <div>
         <img class="WMP-logo" src="{% static 'img/logo.png' %}">
@@ -17,8 +26,9 @@
         <input type="submit" class="mt-3" value="Check Weather">
     </form>
 </div>
+{% endblock content %} 
 
-{% endblock content %} {% block script %}
+{% block script %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6ZPAUxOjNUjddtc39r-w-zuaAOLQlCbc&libraries=places"></script>
 <script>
     $(document).ready(function() {
