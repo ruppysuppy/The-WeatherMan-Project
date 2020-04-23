@@ -41,7 +41,9 @@ def details(request):
                             "humidity": [0 for _ in range(7)],
                             "days": days, 
                             "location": location,
-                            "error": "Location Could Not Be Found!"
+                            "error": "Location Could Not Be Found!",
+                            "curr_icon": "-",
+                            "curr_status": "-"
                         })
     
     try:
@@ -65,12 +67,15 @@ def details(request):
                             "humidity": [0 for _ in range(7)],
                             "days": days, 
                             "location": location,
-                            "error": "Response not received!"
+                            "error": "Response not received!",
+                            "curr_icon": "-",
+                            "curr_status": "-"
                         })
     
     curr_temp = response["current"]["temp"]
     curr_humidity = response["current"]["humidity"]
     curr_icon = IMAGE_URL.format(response["daily"][0]["weather"][0]["icon"])
+    curr_status = response["daily"][0]["weather"][0]["main"]
 
     try:
         curr_precipitation = response["daily"][0]["rain"]
@@ -154,7 +159,8 @@ def details(request):
                             "humidity": humidity,
                             "days": days, 
                             "location": location,
-                            "curr_icon": curr_icon
+                            "curr_icon": curr_icon, 
+                            "curr_status": curr_status
                         })
     
 def about(request):

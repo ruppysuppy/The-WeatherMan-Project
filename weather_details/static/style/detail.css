@@ -1,0 +1,73 @@
+.jumbotron {
+    transition: 0.25s;
+}
+
+.jumbotron:hover {
+    box-shadow: 0px 0px 15px -4px rgba(0, 0, 0, 0.75);
+    cursor: default;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.forecast {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.forecast .card {
+    width: 28%;
+    margin: 8px;
+}
+
+canvas {
+    width: 1200px !important;
+    height: 550px !important;
+    margin: auto;
+}
+
+@media (max-width: 1650px) {
+    canvas {
+        width: 1000px !important;
+        height: 450px !important;
+    }
+}
+
+@media (max-width: 1400px) {
+    canvas {
+        width: 900px !important;
+        height: 425px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .forecast .card {
+        width: 45%;
+    }
+    canvas {
+        width: 600px !important;
+        height: 250px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    canvas {
+        width: 500px !important;
+        height: 225px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .forecast .card {
+        width: 90%;
+        margin: auto;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    canvas {
+        width: 300px !important;
+        height: 150px !important;
+    }
+}

@@ -1,0 +1,54 @@
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+body {
+    width: 100vw !important;
+    overflow-x: hidden !important;
+    color: rgb(40, 30, 50) !important;
+}
+
+nav,
+.navbar {
+    width: 100vw !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 100 !important;
+    border-radius: 0 0 4px 4px !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    transition: 0.25s;
+}
+
+.navbar-toggler-icon:hover,
+.navbar-toggler-icon:focus {
+    transform: scaleY(0.75);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: larger;
+    }
+    h2 {
+        font-size: large;
+    }
+    h3 {
+        font-size: medium;
+    }
+    h4 {
+        font-size: small;
+    }
+    h5 {
+        font-size: small;
+    }
+    p {
+        font-size: smaller;
+    }
+}

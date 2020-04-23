@@ -3,36 +3,79 @@
 <h4 class="text-muted">Location: {{location}}</h4>
 
 <div class="jumbotron">
-    <h2><u>
-        Today's Weather
-    </u></h2>
+    <h2>
+        <u>
+        TODAY'S WEATHER
+        </u>
+    </h2>
     <br>
-    <img src="{{curr_icon}}">
-    <h3> Current Temperature: {{curr_temp}} C</h3>
-    <h3> Humidity: {{curr_humidity}} %</h3>
-    <h3> Precipitation: {{curr_precipitation}} mm</h3>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3> Current Temperature: {{curr_temp}} C</h3>
+            <h3> Humidity: {{curr_humidity}} %</h3>
+            <h3> Precipitation: {{curr_precipitation}} mm</h3>
+        </div>
+        <div class="col-lg-6">
+            <img src="{{curr_icon}}" alt=" Data Not Found">
+            <h3> Current Status: {{curr_status}}</h3>
+        </div>
+    </div>
 </div>
 
-<div class="row pt-2 pb-2 pl-2 pr-2" align="center">
+<div class="mt-5"></div>
+<h2 class="mt-4 mb-2" align="center">
+    <u>
+        FORECAST
+    </u>
+</h2>
+
+<div class="row pt-2 pb-2 pl-2 pr-2 forecast" align="center">
     {% for data in forecast %}
-    <div class="card jumbotron pt-1 pb-2 pl-1 pr-1" style="width: 20rem; margin: 8px;">
+    <div class="card jumbotron pt-1 pb-2 pl-1 pr-1">
         <div class="card-body">
             <h5 class="card-title"><u> {{data.1}} Forecast </u></h5>
             <span>
-		<img src="{{data.0.4}}" style="width: 50px">
+		<img src="{{data.0.4}}" style="width: 50px" alt=" Data Not Found">
 	</span>
-            <br> Maximum Temperature: {{data.0.0}} C
-            <br> Minimum Temperature: {{data.0.1}} C
-            <br> Humidity: {{data.0.2}} %
-            <br> Precipitation: {{data.0.3}} mm
+            <p> Maximum Temperature: {{data.0.0}} C </p>
+            <p> Minimum Temperature: {{data.0.1}} C </p>
+            <p> Humidity: {{data.0.2}} % </p>
+            <p> Precipitation: {{data.0.3}} mm </p>
         </div>
     </div>
     {% endfor %}
 </div>
 
+<div class="mt-5"></div>
+<h2 class="mt-4 mb-2" align="center">
+    <u>
+        PAST DATA
+    </u>
+</h2>
+
 <canvas id="tempChart"></canvas>
+<h3 class="mb-4" align="center">
+    <u>
+        Temperature
+    </u>
+</h3>
+<div class="mt-5"></div>
+
 <canvas id="precipChart"></canvas>
-<canvas id="humidChart"></canvas> {% endblock content %} {% block script %}
+<h3 class="mb-4" align="center">
+    <u>
+        Precipitation
+    </u>
+</h3>
+<div class="mt-5"></div>
+
+<canvas id="humidChart"></canvas>
+<h3 class="mb-4" align="center">
+    <u>
+        Humidity
+    </u>
+</h3>
+<div class="mt-5"></div> {% endblock content %} {% block script %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script>
     // TEMPERATURE GRAPH

@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {% block title %} {% endblock title %} </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'style/base.css' %}"> {% block head %} {% endblock head %}
+    <link rel="stylesheet" href="{% static 'style/base.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon"> {% block head %} {% endblock head %}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: rgb(50, 0, 167) !important;">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">TWM Project</a>
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'img/logo.png' %}" style="max-height: 30px;">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,7 +29,7 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container mt-5 pt-5">
         {% if error %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{error}}</strong>

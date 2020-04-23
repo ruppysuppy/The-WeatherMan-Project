@@ -1,0 +1,50 @@
+.full-body {
+    transform: scale(1.15);
+}
+
+input[type=text] {
+    border: 1px solid grey;
+    border-radius: 12px;
+    padding: 4px 8px;
+    transition: 0.25s;
+    color: gray;
+}
+
+input[type=text]:focus {
+    outline: none;
+    transform: scale(1.05);
+    border: 1px solid rgb(50, 0, 167);
+    color: rgb(50, 0, 167);
+}
+
+input[type=submit] {
+    border: none;
+    border-radius: 12px;
+    transition: 0.25s;
+    background-color: rgb(50, 0, 167);
+    color: white;
+    padding: 5px 10px;
+}
+
+input[type=submit]:hover,
+input[type=submit]:focus {
+    animation: animation_but 1s linear infinite;
+}
+
+@keyframes animation_but {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 992px) {
+    .WMP-logo {
+        width: 125px;
+    }
+}
