@@ -5,6 +5,7 @@ This is a simple Django project which displays the weather details (current + fo
 * Google Places JavaScript API: For the place name auto-completion
 * Open Weather Maps API: For getting the weather details
 * Chart.js: For plotting the charts of previous data
+* AOS: For Animation on Scroll effect
 
 ### How To Use
 Follow the steps to start the local server on your machine:

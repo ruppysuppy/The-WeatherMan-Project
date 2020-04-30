@@ -8,14 +8,14 @@ The WeatherMan Project | Error
 
 {% block content %}
 
-<h1>Oops!</h1>
+<h1 data-aos="fade-up">Oops!</h1>
 
 {% if cause == 'Location' %}
-<h3>
+<h3 data-aos="fade-up" data-aos-delay="400">
     Please check the spelling of the location and try again <a href="{% url 'home' %}"> here</a>.
 </h3>
 {% else %}
-<h3>
+<h3 data-aos="fade-up" data-aos-delay="400">
     The Open Weather Map Server Did not respond. Please try again after some time.
 </h3>
 {% endif %} 

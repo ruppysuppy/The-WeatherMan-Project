@@ -14,28 +14,28 @@ The WeatherMan Project | {{location}}
 
 {% block content %}
 <a href="{% url 'home' %}">
-    <div class="back-button mb-3">
+    <div class="back-button mb-3" data-aos="fade-left">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
         <p style="display: inline;">Check for another place</p>
     </div>
 </a>
 
-<h4 class="text-muted">Location: {{location}}</h4>
+<h4 class="text-muted" data-aos="fade-right">Location: {{location}}</h4>
 
 <div class="jumbotron">
-    <h2>
+    <h2 data-aos="fade-up" data-aos-delay="100">
         <u>
         TODAY'S WEATHER
         </u>
     </h2>
     <br>
-    <div class="row">
+    <div class="row" data-aos="fade-up" data-aos-delay="400">
         <div class="col-lg-6">
             <h3> Current Temperature: {{curr_temp}} C</h3>
             <h3> Humidity: {{curr_humidity}} %</h3>
             <h3> Precipitation: {{curr_precipitation}} mm</h3>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 curr-weather-col-2">
             <img src="{{curr_icon}}" alt=" Data Not Found">
             <h3> Current Status: {{curr_status}}</h3>
         </div>
@@ -43,7 +43,7 @@ The WeatherMan Project | {{location}}
 </div>
 
 <div class="mt-5"></div>
-<h2 class="mt-4 mb-2" align="center">
+<h2 class="mt-4 mb-2" align="center" data-aos="fade-up" data-aos-delay="200">
     <u>
         FORECAST
     </u>
@@ -51,7 +51,7 @@ The WeatherMan Project | {{location}}
 
 <div class="row pt-2 pb-2 pl-2 pr-2 forecast" align="center">
     {% for data in forecast %}
-    <div class="card jumbotron pt-1 pb-2 pl-1 pr-1">
+    <div class="card jumbotron pt-1 pb-2 pl-1 pr-1" data-aos="zoom-in" data-aos-delay="400">
         <div class="card-body">
             <h5 class="card-title"><u> {{data.1}} Forecast </u></h5>
             <span>
@@ -73,29 +73,26 @@ The WeatherMan Project | {{location}}
     </u>
 </h2>
 
-<div class="mt-5"></div>
-<h3 class="mb-4" align="center">
+<h3 class="mb-4 mt-5" align="center" data-aos="fade-up">
     <u>
         Temperature
     </u>
 </h3>
-<canvas id="tempChart"></canvas>
+<canvas id="tempChart" data-aos="zoom-in" data-aos-delay="400"></canvas>
 
-<div class="mt-5"></div>
-<h3 class="mb-4" align="center">
+<h3 class="mb-4 mt-5" align="center" data-aos="fade-up">
     <u>
         Precipitation
     </u>
 </h3>
-<canvas id="precipChart"></canvas>
+<canvas id="precipChart" data-aos="zoom-in" data-aos-delay="400"></canvas>
 
-<div class="mt-5"></div> 
-<h3 class="mb-4" align="center">
+<h3 class="mb-4 mt-5" align="center" data-aos="fade-up">
     <u>
         Humidity
     </u>
 </h3>
-<canvas id="humidChart"></canvas>
+<canvas class="mb-2" id="humidChart" data-aos="zoom-in" data-aos-delay="400"></canvas>
 
 {% endblock content %} 
 

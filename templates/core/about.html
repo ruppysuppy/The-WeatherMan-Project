@@ -13,29 +13,32 @@ The WeatherMan Project | About
 
 {% block content %}
 <div class="mt-4" align="center" style="height: 65vh; display: flex; flex-direction: column; justify-content: center;">
-    <div>
+    <div data-aos="fade-up">
         <img src="{% static 'img/logo.png' %}">
     </div>
-    <h1 class="mt-3">About</h1>
-    <h4>
+    <h1 class="mt-3" data-aos="fade-up" data-aos-delay="200">About</h1>
+    <h4 data-aos="fade-up" data-aos-delay="400">
         <strong>Made By: </strong> Tapajyoti Bose
     </h4>
-    <h5>
+    <h5 data-aos="fade-up" data-aos-delay="600">
         The WeatherMan Project is a web-app for displaying the weather details from all around the world.
     </h5>
 
-    <p class="pt-4 mb-1" align="left">
+    <p class="pt-4 mb-1" align="left" data-aos="fade-up" data-aos-delay="800">
         Resources used:
     </p>
     <ul align="left">
-        <li>
+        <li data-aos="fade-up" data-aos-delay="1000">
             <p> Google Places Javascript API: For autocompletion of the search input </p>
         </li>
-        <li>
+        <li data-aos="fade-up" data-aos-delay="1100">
             <p> Open Weather Maps API: For getting the weather details </p>
         </li>
-        <li>
+        <li data-aos="fade-up" data-aos-delay="1200">
             <p> Chart.js: For displaying the charts </p>
+        </li>
+        <li data-aos="fade-up" data-aos-delay="1300">
+            <p> AOS: For animation on scroll </p>
         </li>
     </ul>
 </div>
